@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'password' => static::$password ??= Hash::make('password123'),
+            'confirmation_status' => true,
             'phone' => '1234567890',
             'role_id' => Role::where('role_name', 'Admin')->first()->id,
         ]);
