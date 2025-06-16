@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::whereNotIn('role_id', [1, 3])->get();
+        $users = User::whereNotIn('role_id', [1, 3])->with('department')->get();
         return response()->json(['users' => $users]);
     }
 
