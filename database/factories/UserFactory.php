@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,7 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'confirmation_status' => false,
             'role_id' => Role::inRandomOrder()->first()->id,
+            'department_id' => fake()->boolean(70) ? Department::inRandomOrder()->first()->id : null,
         ];
     }
 
