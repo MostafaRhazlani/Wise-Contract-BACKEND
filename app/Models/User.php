@@ -16,18 +16,21 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'phone',
+        'confirmation_status',
+        'role_id',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -44,6 +47,20 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'confirmation_status' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the role that owns the user.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 }
