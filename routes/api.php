@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'checkAuthenticatedUser']);
 
-    // department route
+    // department routes
     Route::get('/department', [DepartmentController::class, 'index']);
+
+    // user routes
+    Route::get('/users', [UserController::class, 'index']);
+
 });
