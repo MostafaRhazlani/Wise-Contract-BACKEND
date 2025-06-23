@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             CompanySeeder::class,
             PostSeeder::class,
+            CompanyDepartmentSeeder::class,
             UserSeeder::class,
             VariableSeeder::class,
         ]);
