@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Department;
 use App\Models\Role;
+use App\Models\Company;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -25,6 +27,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // choose role not be admin or manager
+        $role = Role::whereNotIn('id', [1, 4])->inRandomOrder()->first();
+
+        // choose random compnay
+        $company = Company::inRandomOrder()->first();
+
+        // choose random department belongs to company
+        $department = $company?->departments()->inRandomOrder()->first();
+
+        // choose post belongs to department
+        $post = $department?->posts()->inRandomOrder()->first();
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -32,8 +46,11 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'phone' => fake()->phoneNumber(),
             'confirmation_status' => false,
-            'role_id' => Role::inRandomOrder()->first()->id,
-            'department_id' => fake()->boolean(70) ? Department::inRandomOrder()->first()->id : null,
+            'join_date' => fake()->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
+            'role_id' => $role->id,
+            'company_id' => $company?->id,
+            'department_id' => $department?->id,
+            'post_id' => $post?->id,
         ];
     }
 
