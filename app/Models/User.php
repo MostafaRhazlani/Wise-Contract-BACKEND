@@ -17,10 +17,11 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'confirmation_status',
+        'join_date',
         'role_id',
         'department_id',
-        'company_id'
+        'company_id',
+        'post_id',
     ];
 
     protected $hidden = [
@@ -31,7 +32,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'confirmation_status' => 'boolean',
+        'join_date' => 'date',
     ];
 
     public function role()
@@ -47,5 +48,15 @@ class User extends Authenticatable
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function ownedCompanies()
+    {
+        return $this->hasOne(Company::class, 'owner_id');
     }
 }
