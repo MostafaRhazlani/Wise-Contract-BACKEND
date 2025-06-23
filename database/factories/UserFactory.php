@@ -27,15 +27,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $role = Role::inRandomOrder()->first();
+        // choose role not be admin or manager
+        $role = Role::whereNotIn('id', [1, 4])->inRandomOrder()->first();
+
+        // choose random compnay
         $company = Company::inRandomOrder()->first();
 
-        // Don't assign department and post for admin or manager roles
-        $isDepartmentRole = !in_array(strtolower($role->role_name), ['admin', 'manager']);
-        
-        $department = $isDepartmentRole && $company ? $company->departments()->inRandomOrder()->first() : null;
+        // choose random department belongs to company
+        $department = $company?->departments()->inRandomOrder()->first();
 
-        $post = $isDepartmentRole && $department ? $department->posts()->inRandomOrder()->first() : null;
+        // choose post belongs to department
+        $post = $department?->posts()->inRandomOrder()->first();
 
         return [
             'name' => fake()->name(),
@@ -45,9 +47,9 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'confirmation_status' => false,
             'join_date' => fake()->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
-            'role_id' => Role::inRandomOrder()->first()->id,
-            'department_id' => $department?->id,
+            'role_id' => $role->id,
             'company_id' => $company?->id,
+            'department_id' => $department?->id,
             'post_id' => $post?->id,
         ];
     }
