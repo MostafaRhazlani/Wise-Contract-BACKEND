@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VariableController;
@@ -25,7 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/departments/{department}', [DepartmentController::class, 'destroy']);
     });
 
-    // Variables routes - only developers can create/update/delete
+    // Variables routes
     Route::get('/variables', [VariableController::class, 'index']);
     Route::middleware('developer')->group(function() {
         Route::get('/variable/{variable}', [VariableController::class, 'show']);

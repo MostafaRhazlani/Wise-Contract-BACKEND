@@ -24,8 +24,13 @@ class DepartmentFactory extends Factory
      */
     public function definition(): array
     {
+        $departmentNames = [
+            'Engineering', 'Marketing', 'Sales', 'Support', 'Design',
+            'Operations', 'Finance', 'Legal', 'Security', 'Analytics'
+        ];
+
         return [
-            'department_name' => $this->faker->unique()->company(),
+            'department_name' => $this->faker->randomElement($departmentNames) . ' ' . $this->faker->word(),
         ];
     }
 }

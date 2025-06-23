@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Department;
+use App\Models\Company;
 use Illuminate\Database\Seeder;
 
 class DepartmentSeeder extends Seeder
@@ -15,7 +16,7 @@ class DepartmentSeeder extends Seeder
         // Create predefined departments
         $departments = [
             'Information Technology',
-            'Human Resources',
+            'Human Resources', 
             'Finance',
             'Marketing',
             'Operations',
@@ -28,11 +29,18 @@ class DepartmentSeeder extends Seeder
 
         foreach ($departments as $departmentName) {
             Department::create([
-                'department_name' => $departmentName
+                'department_name' => $departmentName,
             ]);
         }
 
-        // Create additional random departments
-        Department::factory()->create();
+        // Attach departments to companies
+        $companies = Company::all();
+        $departmentsList = Department::all();
+
+        foreach ($companies as $company) {
+            // Attach 3-6 random departments to each company
+            $randomDepartments = $departmentsList->random(rand(3, 6));
+            $company->departments()->attach($randomDepartments);
+        }
     }
 }

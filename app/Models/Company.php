@@ -5,22 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Company extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'department_name',
+        'company_name',
+        'owner_id',
+        'company_logo',
     ];
 
-    public function companies()
+    public function owner()
     {
-        return $this->belongsToMany(Company::class);
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function posts()
+    public function departments()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(Department::class);
     }
 
     public function users()
