@@ -19,7 +19,6 @@ class CompanyFactory extends Factory
     {
         return [
             'company_name' => $this->faker->company(),
-            'owner_id' => User::inRandomOrder()->first()->id,
             'company_logo' => 'https://placehold.co/400x200/006400/FFFFFF?text=' . urlencode(strtoupper($this->faker->companySuffix())),
         ];
     }
