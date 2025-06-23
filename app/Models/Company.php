@@ -29,4 +29,8 @@ class Company extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function templates() {
+        return $this->hasMany(Template::class);
+    }
 }

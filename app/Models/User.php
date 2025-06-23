@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->belongsTo(Post::class);
     }
 
-    public function ownedCompanies()
+    public function ownedCompany()
     {
         return $this->hasOne(Company::class, 'owner_id');
     }

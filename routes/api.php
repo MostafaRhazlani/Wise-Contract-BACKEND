@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\VariableController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\VariableController;
+use App\Http\Controllers\DepartmentController;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -35,7 +36,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/variable/{variable}', [VariableController::class, 'destroy']);
     });
 
-
     // User routes
     Route::get('/users', [UserController::class, 'index']);
+
+    Route::get('/company/show', [CompanyController::class, 'show']);
+
+    Route::post('/template/save', [TemplateController::class, 'store']);
+
 });
