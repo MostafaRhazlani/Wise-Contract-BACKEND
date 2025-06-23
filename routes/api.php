@@ -17,23 +17,24 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'checkAuthenticatedUser']);
 
-    // Company routes
-    Route::get('/companies', [CompanyController::class, 'index']);
-    Route::get('/companies/{company}/structure', [CompanyController::class, 'getCompanyStructure']);
-
-    // Department routes
+    // Department routes - only admin can create / update / delete
     Route::get('/departments', [DepartmentController::class, 'index']);
-    Route::get('/departments/{department}', [DepartmentController::class, 'show']);
-    Route::post('/departments', [DepartmentController::class, 'store']);
-    Route::put('/departments/{department}', [DepartmentController::class, 'update']);
-    Route::delete('/departments/{department}', [DepartmentController::class, 'destroy']);
+    Route::middleware('admin')->group(function() {
+        Route::get('/departments/{department}', [DepartmentController::class, 'show']);
+        Route::post('/departments', [DepartmentController::class, 'store']);
+        Route::put('/departments/{department}', [DepartmentController::class, 'update']);
+        Route::delete('/departments/{department}', [DepartmentController::class, 'destroy']);
+    });
 
     // Variables routes
     Route::get('/variables', [VariableController::class, 'index']);
-    Route::get('/variables/{variable}', [VariableController::class, 'show']);
-    Route::post('/variables', [VariableController::class, 'store']);
-    Route::put('/variables/{variable}', [VariableController::class, 'update']);
-    Route::delete('/variables/{variable}', [VariableController::class, 'destroy']);
+    Route::middleware('developer')->group(function() {
+        Route::get('/variable/{variable}', [VariableController::class, 'show']);
+        Route::post('/variable', [VariableController::class, 'store']);
+        Route::put('/variable/{variable}', [VariableController::class, 'update']);
+        Route::delete('/variable/{variable}', [VariableController::class, 'destroy']);
+    });
+
 
     // User routes
     Route::get('/users', [UserController::class, 'index']);
