@@ -27,8 +27,5 @@ class VariableSeeder extends Seeder
         foreach ($variables as $variable) {
             Variable::create($variable);
         }
-
-        // Create additional random variables using factory
-        Variable::factory(5)->create();
     }
 }
