@@ -15,7 +15,7 @@ class VariableController extends Controller
     public function index(): JsonResponse
     {
         $variables = Variable::all();
-        
+
         return response()->json([
             'success' => true,
             'data' => $variables
@@ -27,14 +27,6 @@ class VariableController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        // Check if user is developer
-        if (!$this->isDeveloper()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized. Developer access required.'
-            ], 403);
-        }
-
         try {
             $request->validate([
                 'key' => 'required|string|max:255|unique:variables,key',
@@ -64,8 +56,9 @@ class VariableController extends Controller
     /**
      * Display the specified variable.
      */
-    public function show(Variable $variable): JsonResponse
+    public function show(Variable $id): JsonResponse
     {
+        $variable = Variable::findOrFail($id);
         return response()->json([
             'success' => true,
             'data' => $variable
@@ -77,13 +70,6 @@ class VariableController extends Controller
      */
     public function update(Request $request, Variable $variable): JsonResponse
     {
-        // Check if user is developer
-        if (!$this->isDeveloper()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized. Developer access required.'
-            ], 403);
-        }
 
         try {
             $request->validate([
@@ -116,13 +102,6 @@ class VariableController extends Controller
      */
     public function destroy(Variable $variable): JsonResponse
     {
-        // Check if user is developer
-        if (!$this->isDeveloper()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized. Developer access required.'
-            ], 403);
-        }
 
         $variable->delete();
 
@@ -130,14 +109,5 @@ class VariableController extends Controller
             'success' => true,
             'message' => 'Variable deleted successfully.'
         ]);
-    }
-
-    /**
-     * Check if the authenticated user is a developer.
-     */
-    private function isDeveloper(): bool
-    {
-        $user = auth()->user();
-        return $user && $user->role && $user->role->role_name === 'Developer';
     }
 }
