@@ -30,13 +30,23 @@ class TemplateController extends Controller
     {
         $validated = $request->validate([
             'content_json' => 'required',
-            'company_id' => 'required|integer'
+            'company_id' => 'required|integer',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         try {
+            // Generate unique name for the image
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $uniqueImageName = time() . '_' . uniqid() . '.' . $extension;
+
+            // Store the image with the unique name in the 'public/images' directory
+            $imagePath = $image->storeAs('template_images', $uniqueImageName, 'public');
+
             $template = Template::create([
                 'content_json' => json_encode($validated['content_json']),
-                'company_id' => $validated['company_id']
+                'company_id' => $validated['company_id'],
+                'image' => $imagePath
             ]);
 
             return response()->json([
