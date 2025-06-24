@@ -10,9 +10,18 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::whereNotIn('role_id', [1, 3])->with('department')->get();
+        $authUser = $request->user();
+        if (!$authUser || !$authUser->company_id) {
+            return response()->json(['users' => []]);
+        }
+
+        $users = User::where('company_id', $authUser->company_id)
+            ->whereNotIn('role_id', [1, 3])
+            ->with(['department', 'post'])
+            ->get();
+
         return response()->json(['users' => $users]);
     }
 
