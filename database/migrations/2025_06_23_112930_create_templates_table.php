@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('content_json')->nullable();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
