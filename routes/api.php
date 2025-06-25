@@ -42,5 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/company/show', [CompanyController::class, 'show']);
 
     Route::post('/template/save', [TemplateController::class, 'store']);
+    Route::get('/company/templates/{company_id}', [TemplateController::class, 'companyTemplates']);
+    Route::get('/template/{id}', [TemplateController::class, 'show']);
 
 });
