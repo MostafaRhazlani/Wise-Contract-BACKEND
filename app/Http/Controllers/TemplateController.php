@@ -15,6 +15,16 @@ class TemplateController extends Controller
         //
     }
 
+    public function companyTemplates($company_id) {
+
+        try {
+            $templates = Template::where('company_id', $company_id)->get();
+            return response()->json(['templates' => $templates], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -30,30 +40,47 @@ class TemplateController extends Controller
     {
         $validated = $request->validate([
             'content_json' => 'required',
-            'company_id' => 'required|integer'
+            'company_id' => 'required|integer',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         try {
+            // Generate unique name for the image
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $uniqueImageName = time() . '_' . uniqid() . '.' . $extension;
+
+            // Store the image with the unique name in the 'public/images' directory
+            $imagePath = $image->storeAs('template_images', $uniqueImageName, 'public');
+
             $template = Template::create([
-                'content_json' => json_encode($validated['content_json']),
-                'company_id' => $validated['company_id']
+                'content_json' => $validated['content_json'],
+                'company_id' => $validated['company_id'],
+                'image' => $imagePath
             ]);
 
             return response()->json([
                 'template' => $template,
                 'success' => 'template created successfully'
-            ]);
+            ], 200);
         } catch (\Throwable $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 400);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Template $template)
+    public function show($id)
     {
-        //
+        try {
+            $template = Template::findOrFail($id);
+            return response()->json([
+                'template' => $template
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
