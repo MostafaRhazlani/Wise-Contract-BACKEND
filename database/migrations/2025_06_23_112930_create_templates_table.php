@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
+            $table->string('template_name')->default('New Template');
             $table->text('content_json')->nullable();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->string('image')->nullable();

@@ -11,6 +11,7 @@ class Template extends Model
 
     protected $fillable = [
         'content_json',
+        'template_name',
         'company_id',
         'image',
         'type_id'
