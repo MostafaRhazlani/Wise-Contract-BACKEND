@@ -15,10 +15,20 @@ class TemplateController extends Controller
         //
     }
 
+    public function companyTemplatesWithType($company_id, $type_id) {
+
+        try {
+            $templates = Template::where('company_id', $company_id)->where('type_id', $type_id)->get();
+            return response()->json(['templates' => $templates], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
     public function companyTemplates($company_id) {
 
         try {
-            $templates = Template::where('company_id', $company_id)->get();
+            $templates = Template::where('company_id', $company_id)->with('type')->get();
             return response()->json(['templates' => $templates], 200);
         } catch (\Throwable $e) {
             return response()->json(['message' => $e->getMessage()], 500);
@@ -41,6 +51,7 @@ class TemplateController extends Controller
         $validated = $request->validate([
             'content_json' => 'required',
             'company_id' => 'required|integer',
+            'type_id' => 'required|integer',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
@@ -56,6 +67,7 @@ class TemplateController extends Controller
             $template = Template::create([
                 'content_json' => $validated['content_json'],
                 'company_id' => $validated['company_id'],
+                'type_id' => $request->type_id,
                 'image' => $imagePath
             ]);
 
@@ -74,7 +86,7 @@ class TemplateController extends Controller
     public function show($id)
     {
         try {
-            $template = Template::findOrFail($id);
+            $template = Template::with('type')->findOrFail($id);
             return response()->json([
                 'template' => $template
             ], 200);
