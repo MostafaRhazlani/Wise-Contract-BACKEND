@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\VariableController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\TypeController;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -39,10 +40,16 @@ Route::middleware('auth:sanctum')->group(function () {
     // User routes
     Route::get('/users', [UserController::class, 'index']);
 
+    // Company routes
     Route::get('/company/show', [CompanyController::class, 'show']);
 
+    // Template routes
     Route::post('/template/save', [TemplateController::class, 'store']);
+    Route::get('/company/templates/{company_id}/{type_id}', [TemplateController::class, 'companyTemplatesWithType']);
     Route::get('/company/templates/{company_id}', [TemplateController::class, 'companyTemplates']);
     Route::get('/template/{id}', [TemplateController::class, 'show']);
+
+    // Type routes
+    Route::get('/types', [TypeController::class, 'index']);
 
 });
