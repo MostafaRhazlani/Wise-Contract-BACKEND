@@ -12,7 +12,8 @@ class Template extends Model
     protected $fillable = [
         'content_json',
         'company_id',
-        'image'
+        'image',
+        'type_id'
     ];
 
     public function company() {

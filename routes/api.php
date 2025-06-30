@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Template routes
     Route::post('/template/save', [TemplateController::class, 'store']);
+    Route::get('/company/templates/{company_id}/{type_id}', [TemplateController::class, 'companyTemplatesWithType']);
     Route::get('/company/templates/{company_id}', [TemplateController::class, 'companyTemplates']);
     Route::get('/template/{id}', [TemplateController::class, 'show']);
 
