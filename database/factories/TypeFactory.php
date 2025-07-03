@@ -19,6 +19,8 @@ class TypeFactory extends Factory
         return [
             'title' => $this->faker->word,
             'logo' => $this->faker->imageUrl(),
+            'height' => $this->faker->numberBetween(0, 100000),
+            'width' => $this->faker->numberBetween(0, 100000),
         ];
     }
 }

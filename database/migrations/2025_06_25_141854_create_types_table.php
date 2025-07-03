@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('logo');
             $table->string('title', 50);
             $table->string('color', 50);
+            $table->integer('height');
+            $table->integer('width');
             $table->timestamps();
         });
     }
