@@ -16,9 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->date('join_date')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->boolean('confirmation_status')->default(0);
+            $table->foreignId('role_id')->nullable()->constrained('roles')->nullOnDelete();
+            $table->foreignId('department_id')->nullable()->constrained('departments')->nullOnDelete();
+            $table->foreignId('post_id')->nullable()->constrained('posts')->nullOnDelete();
             $table->timestamps();
         });
     }

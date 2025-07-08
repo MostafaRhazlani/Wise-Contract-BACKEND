@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
             $table->string('template_name')->default('New Template');
-            $table->text('content_json')->nullable();
-            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->string('image')->nullable();
+            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('type_id')->nullable()->constrained('types')->onDelete('set null');
             $table->timestamps();
         });
     }
