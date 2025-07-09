@@ -12,22 +12,14 @@ class DepartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        // Since departments table doesn't have company_id, return all departments
         $departments = Department::all();
         
         return response()->json([
-            'success' => true,
-            'data' => $departments
+            'departments' => $departments
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -35,7 +27,6 @@ class DepartmentController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-
         try {
             $request->validate([
                 'department_name' => 'required|string|max:255|unique:departments,department_name'
@@ -69,14 +60,6 @@ class DepartmentController extends Controller
             'success' => true,
             'data' => $department
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Department $department)
-    {
-        //
     }
 
     /**
@@ -151,6 +134,6 @@ class DepartmentController extends Controller
     private function isAdmin(): bool
     {
         $user = auth()->user();
-        return $user && $user->role && $user->role->role_name === 'admin';
+        return $user && $user->role && $user->role->role_name === 'Admin';
     }
 }
