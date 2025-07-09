@@ -9,6 +9,8 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\VariableController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PostController;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -19,26 +21,23 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'checkAuthenticatedUser']);
 
-    // Department routes - only admin can create / update / delete
-    Route::get('/departments', [DepartmentController::class, 'index']);
-    Route::middleware('admin')->group(function() {
-        Route::get('/departments/{department}', [DepartmentController::class, 'show']);
-        Route::post('/departments', [DepartmentController::class, 'store']);
-        Route::put('/departments/{department}', [DepartmentController::class, 'update']);
-        Route::delete('/departments/{department}', [DepartmentController::class, 'destroy']);
-    });
-
-    // Variables routes
-    Route::get('/variables', [VariableController::class, 'index']);
-    Route::middleware('developer')->group(function() {
-        Route::get('/variable/{variable}', [VariableController::class, 'show']);
-        Route::post('/variable', [VariableController::class, 'store']);
-        Route::put('/variable/{variable}', [VariableController::class, 'update']);
-        Route::delete('/variable/{variable}', [VariableController::class, 'destroy']);
-    });
-
     // User routes
     Route::get('/users', [UserController::class, 'index']);
+    
+    // Role routes
+    Route::get('/roles', [RoleController::class, 'index']);
+    
+    // Department routes
+    Route::get('/departments', [DepartmentController::class, 'index']);
+    
+    // Post routes
+    Route::get('/posts', [PostController::class, 'index']);
+    
+    Route::middleware('manager')->group(function() {
+        Route::post('/users', [UserController::class, 'store']);
+        Route::put('/users/{user}', [UserController::class, 'update']);
+        Route::delete('/users/{user}', [UserController::class, 'destroy']);
+    });
 
     // Company routes
     Route::get('/company/show', [CompanyController::class, 'show']);
