@@ -42,15 +42,15 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
             'phone' => fake()->phoneNumber(),
-            'confirmation_status' => false,
+            'password' => static::$password ??= Hash::make('password'),
             'join_date' => fake()->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
+            'email_verified_at' => now(),
+            'confirmation_status' => false,
             'role_id' => $role->id,
-            'company_id' => $company?->id,
             'department_id' => $department?->id,
             'post_id' => $post?->id,
+            'company_id' => $company?->id,
         ];
     }
 
