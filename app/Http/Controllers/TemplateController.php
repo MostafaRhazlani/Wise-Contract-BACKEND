@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
+use App\Models\TemplatePage;
 use Illuminate\Http\Request;
 
 class TemplateController extends Controller
@@ -49,30 +50,45 @@ class TemplateController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'content_json' => 'required',
+            'content_json' => 'required|array',
+            'content_json.*' => 'required',
             'company_id' => 'required|integer',
             'type_id' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'image_path' => 'required|array',
+            'image_path.*' => 'required|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         try {
-            // Generate unique name for the image
-            $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $uniqueImageName = time() . '_' . uniqid() . '.' . $extension;
-
-            // Store the image with the unique name in the 'public/images' directory
-            $imagePath = $image->storeAs('template_images', $uniqueImageName, 'public');
-
             $template = Template::create([
-                'content_json' => $validated['content_json'],
                 'company_id' => $validated['company_id'],
                 'type_id' => $request->type_id,
-                'image' => $imagePath
             ]);
+
+            $jsons = $validated['content_json'];
+            $images = $request->file('image_path');
+
+            foreach ($jsons as $i => $json) {
+
+                // generate unique name for image
+                $image = $images[$i] ?? null;
+                if(!$image) continue;
+
+                $extension = $image->getClientOriginalExtension();
+                $uniqueImageName = time() . '_' . uniqid() . '.' . $extension;
+
+                // Store the image with the unique name in the 'public/images' directory
+                $imagePath = $image->storeAs('template_images', $uniqueImageName, 'public');
+
+                $template_page = TemplatePage::create([
+                    'image_path' => $imagePath,
+                    'content_json' => $json,
+                    'template_id' => $template->id,
+                ]);
+            }
 
             return response()->json([
                 'template' => $template,
+                'template_page' => $template_page,
                 'success' => 'template created successfully'
             ], 200);
         } catch (\Throwable $e) {

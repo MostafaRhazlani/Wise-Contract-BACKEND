@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('templates', function (Blueprint $table) {
+        Schema::create('template_pages', function (Blueprint $table) {
             $table->id();
-            $table->string('template_name')->default('New Template');
-            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
-            $table->foreignId('type_id')->nullable()->constrained('types')->onDelete('set null');
+            $table->string('page_name')->nullable();
+            $table->string('image_path');
+            $table->text('content_json')->nullable();
+            $table->foreignId('template_id')->constrained('templates')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('templates');
+        Schema::dropIfExists('template_pages');
     }
 };

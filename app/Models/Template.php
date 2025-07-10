@@ -24,4 +24,8 @@ class Template extends Model
     public function type() {
         return $this->belongsTo(Type::class);
     }
+
+    public function pages() {
+        return $this->hasMany(TemplatePage::class);
+    }
 }
