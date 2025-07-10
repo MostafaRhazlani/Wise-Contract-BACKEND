@@ -15,26 +15,26 @@ class VariableSeeder extends Seeder
         // Create predefined variables that map to actual database fields
         $variables = [
             // User fields
-            ['key' => 'user_name', 'label' => 'user.name'],
-            ['key' => 'user_email', 'label' => 'user.email'],
-            ['key' => 'user_phone', 'label' => 'user.phone'],
-            ['key' => 'user_id', 'label' => 'user.id'],
-            ['key' => 'join_date', 'label' => 'user.join_date'],
-            ['key' => 'created_at', 'label' => 'user.created_at'],
+            ['label' => 'user_name', 'key' => 'user.name'],
+            ['label' => 'user_email', 'key' => 'user.email'],
+            ['label' => 'user_phone', 'key' => 'user.phone'],
+            ['label' => 'user_id', 'key' => 'user.id'],
+            ['label' => 'join_date', 'key' => 'user.join_date'],
+            ['label' => 'created_at', 'key' => 'user.created_at'],
 
             // Related fields (with relationships)
-            ['key' => 'role_name', 'label' => 'user.role.role_name'],
-            ['key' => 'department_name', 'label' => 'user.department.department_name'],
-            ['key' => 'post_title', 'label' => 'user.post.title'],
-            ['key' => 'company_name', 'label' => 'user.company.company_name'],
-            ['key' => 'company_email', 'label' => 'user.company.email'],
-            ['key' => 'company_phone', 'label' => 'user.company.phone'],
-            ['key' => 'company_address', 'label' => 'user.company.address'],
+            ['label' => 'role_name', 'key' => 'user.role.role_name'],
+            ['label' => 'department_name', 'key' => 'user.department.department_name'],
+            ['label' => 'post_title', 'key' => 'user.post.title'],
+            ['label' => 'company_name', 'key' => 'user.company.company_name'],
+            ['label' => 'company_email', 'key' => 'user.company.email'],
+            ['label' => 'company_phone', 'key' => 'user.company.phone'],
+            ['label' => 'company_address', 'key' => 'user.company.address'],
 
             // System fields
-            ['key' => 'current_date', 'label' => 'current_date'],
-            ['key' => 'current_time', 'label' => 'current_time'],
-            ['key' => 'current_year', 'label' => 'current_year'],
+            ['label' => 'current_date', 'key' => 'current_date'],
+            ['label' => 'current_time', 'key' => 'current_time'],
+            ['label' => 'current_year', 'key' => 'current_year'],
         ];
 
         foreach ($variables as $variable) {
