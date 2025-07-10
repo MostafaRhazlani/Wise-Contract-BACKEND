@@ -11,10 +11,21 @@ class Template extends Model
 
     protected $fillable = [
         'content_json',
-        'company_id'
+        'template_name',
+        'company_id',
+        'image',
+        'type_id'
     ];
 
     public function company() {
         return $this->belongsTo(Company::class);
+    }
+
+    public function type() {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function pages() {
+        return $this->hasMany(TemplatePage::class);
     }
 }

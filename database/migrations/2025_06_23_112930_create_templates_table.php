@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
-            $table->text('content_json')->nullable();
+            $table->string('template_name')->default('New Template');
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('type_id')->nullable()->constrained('types')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CompanyDepartmentSeeder::class,
             UserSeeder::class,
             VariableSeeder::class,
+            TypeSeeder::class,
         ]);
     }
 }
