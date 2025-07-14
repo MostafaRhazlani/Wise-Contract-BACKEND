@@ -23,16 +23,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // User routes
     Route::get('/users', [UserController::class, 'index']);
-    
+
     // Role routes
     Route::get('/roles', [RoleController::class, 'index']);
-    
+
     // Department routes
     Route::get('/departments', [DepartmentController::class, 'index']);
-    
+
     // Post routes
     Route::get('/posts', [PostController::class, 'index']);
-    
+
     Route::middleware('manager')->group(function() {
         Route::post('/users', [UserController::class, 'store']);
         Route::put('/users/{user}', [UserController::class, 'update']);
@@ -51,4 +51,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Type routes
     Route::get('/types', [TypeController::class, 'index']);
 
+    // Variable routes
+    Route::get('/variables', [VariableController::class, 'index']);
 });
