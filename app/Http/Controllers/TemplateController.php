@@ -19,7 +19,7 @@ class TemplateController extends Controller
     public function companyTemplatesWithType($company_id, $type_id) {
 
         try {
-            $templates = Template::where('company_id', $company_id)->where('type_id', $type_id)->get();
+            $templates = Template::where('company_id', $company_id)->where('type_id', $type_id)->with('pages')->get();
             return response()->json(['templates' => $templates], 200);
         } catch (\Throwable $e) {
             return response()->json(['message' => $e->getMessage()], 500);
@@ -29,7 +29,7 @@ class TemplateController extends Controller
     public function companyTemplates($company_id) {
 
         try {
-            $templates = Template::where('company_id', $company_id)->with('type')->get();
+            $templates = Template::where('company_id', $company_id)->with('type', 'pages')->get();
             return response()->json(['templates' => $templates], 200);
         } catch (\Throwable $e) {
             return response()->json(['message' => $e->getMessage()], 500);
