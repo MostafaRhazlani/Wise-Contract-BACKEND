@@ -36,4 +36,8 @@ class Company extends Model
     {
         return $this->hasMany(Template::class);
     }
+
+    public function gallery() {
+        return $this->hasMany(CompanyGallery::class);
+    }
 }

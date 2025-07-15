@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyGalleryController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\VariableController;
 use App\Http\Controllers\DepartmentController;
@@ -45,6 +46,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // Company routes
     Route::get('/company/show', [CompanyController::class, 'show']);
 
+    // Company Gallery routes
+    Route::get('company/{company_id}/gallery', [CompanyGalleryController::class, 'index']);
+    Route::post('/upload/image ', [CompanyGalleryController::class, 'store']);
+
+
     // Template routes
     Route::post('/template/save', [TemplateController::class, 'store']);
     Route::get('/company/templates/{company_id}/{type_id}', [TemplateController::class, 'companyTemplatesWithType']);
@@ -56,4 +62,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Variable routes
     Route::get('/variables', [VariableController::class, 'index']);
+
 });
