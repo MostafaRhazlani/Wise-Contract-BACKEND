@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TemplatePages;
+use App\Models\TemplatePage;
 use Illuminate\Http\Request;
 
-class TemplatePagesController extends Controller
+class TemplatePageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class TemplatePagesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TemplatePages $templatePages)
+    public function show(TemplatePage $templatePage)
     {
         //
     }
@@ -42,7 +42,7 @@ class TemplatePagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TemplatePages $templatePages)
+    public function edit(TemplatePage $templatePage)
     {
         //
     }
@@ -50,7 +50,7 @@ class TemplatePagesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TemplatePages $templatePages)
+    public function update(Request $request, TemplatePage $templatePage)
     {
         //
     }
@@ -58,7 +58,7 @@ class TemplatePagesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TemplatePages $templatePages)
+    public function destroy(TemplatePage $templatePage)
     {
         //
     }
