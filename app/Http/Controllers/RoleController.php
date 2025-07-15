@@ -15,4 +15,14 @@ class RoleController extends Controller
             'roles' => $roles
         ]);
     }
+
+    public function publicRoles()
+    {
+        // For registration, only show Manager role
+        $roles = Role::whereIn('id', [3])->get(); // Only Manager role
+        
+        return response()->json([
+            'roles' => $roles
+        ]);
+    }
 }
