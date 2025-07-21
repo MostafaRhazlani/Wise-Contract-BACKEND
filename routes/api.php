@@ -46,10 +46,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Company routes
     Route::get('/company/show', [CompanyController::class, 'show']);
 
-    // Company Gallery routes
-    Route::get('company/{company_id}/gallery', [CompanyGalleryController::class, 'index']);
-    Route::post('/upload/image ', [CompanyGalleryController::class, 'store']);
-
 
     // Template routes
     Route::post('/template/save', [TemplateController::class, 'store']);
