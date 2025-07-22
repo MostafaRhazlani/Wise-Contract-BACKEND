@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Type routes
     Route::get('/types', [TypeController::class, 'index']);
+    Route::get('/type/{id}', [TypeController::class, 'show']);
 
     // Variable routes
     Route::get('/variables', [VariableController::class, 'index']);
