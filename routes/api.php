@@ -26,20 +26,39 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // User routes
     Route::get('/users', [UserController::class, 'index']);
-
+    
     // Role routes
     Route::get('/roles', [RoleController::class, 'index']);
-
-    // Department routes
+    
+    // Department routes (read-only for everyone)
     Route::get('/departments', [DepartmentController::class, 'index']);
-
-    // Post routes
+    Route::get('/departments/{department}', [DepartmentController::class, 'show']);
+    
+    // Post routes (read-only for everyone)
     Route::get('/posts', [PostController::class, 'index']);
+    Route::get('/posts/{post}', [PostController::class, 'show']);
+    
+    // Get posts by department
+    Route::get('/departments/{department}/posts', [PostController::class, 'getPostsByDepartment']);
 
+    // Manager routes
     Route::middleware('manager')->group(function() {
         Route::post('/users', [UserController::class, 'store']);
         Route::put('/users/{user}', [UserController::class, 'update']);
         Route::delete('/users/{user}', [UserController::class, 'destroy']);
+    });
+
+    // Admin routes
+    Route::middleware('admin')->group(function() {
+        // Department CRUD (admin only)
+        Route::post('/departments', [DepartmentController::class, 'store']);
+        Route::put('/departments/{department}', [DepartmentController::class, 'update']);
+        Route::delete('/departments/{department}', [DepartmentController::class, 'destroy']);
+        
+        // Post CRUD (admin only)
+        Route::post('/posts', [PostController::class, 'store']);
+        Route::put('/posts/{post}', [PostController::class, 'update']);
+        Route::delete('/posts/{post}', [PostController::class, 'destroy']);
     });
 
     // Company routes
@@ -53,7 +72,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Type routes
     Route::get('/types', [TypeController::class, 'index']);
-
-    // Variable routes
     Route::get('/variables', [VariableController::class, 'index']);
 });
