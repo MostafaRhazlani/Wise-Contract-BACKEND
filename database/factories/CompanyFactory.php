@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CompanyFactory extends Factory
 {
+    protected $model = Company::class;
+
     /**
      * Define the model's default state.
      *
@@ -19,7 +22,9 @@ class CompanyFactory extends Factory
     {
         return [
             'company_name' => $this->faker->company(),
-            'company_logo' => 'https://placehold.co/400x200/006400/FFFFFF?text=' . urlencode(strtoupper($this->faker->companySuffix())),
+            'email' => $this->faker->unique()->safeEmail(), // Fix: use safeEmail instead of companyEmail
+            'address' => $this->faker->address(),
+            'company_logo' => null,
         ];
     }
 }

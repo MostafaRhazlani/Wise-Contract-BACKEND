@@ -17,11 +17,12 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'join_date',
+        'email_verified_at',
         'role_id',
         'department_id',
-        'company_id',
         'post_id',
+        'company_id',
+        'join_date',
     ];
 
     protected $hidden = [
@@ -31,8 +32,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'join_date' => 'date',
+        'join_date' => 'datetime',
     ];
 
     public function role()
@@ -40,23 +40,18 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
-
     public function company()
     {
         return $this->belongsTo(Company::class);
     }
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
     public function post()
     {
         return $this->belongsTo(Post::class);
-    }
-
-    public function ownedCompany()
-    {
-        return $this->hasOne(Company::class, 'owner_id');
     }
 }

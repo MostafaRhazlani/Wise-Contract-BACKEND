@@ -11,8 +11,10 @@ class Company extends Model
 
     protected $fillable = [
         'company_name',
-        'owner_id',
+        'email',
+        'address',
         'company_logo',
+        'owner_id',
     ];
 
     public function owner()
@@ -20,17 +22,22 @@ class Company extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function departments()
-    {
-        return $this->belongsToMany(Department::class);
-    }
-
     public function users()
     {
         return $this->hasMany(User::class);
     }
 
-    public function templates() {
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class, 'company_department');
+    }
+
+    public function templates()
+    {
         return $this->hasMany(Template::class);
+    }
+
+    public function gallery() {
+        return $this->hasMany(CompanyGallery::class);
     }
 }

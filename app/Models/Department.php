@@ -13,18 +13,18 @@ class Department extends Model
         'department_name',
     ];
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function companies()
     {
-        return $this->belongsToMany(Company::class);
+        return $this->belongsToMany(Company::class, 'company_department');
     }
 
     public function posts()
     {
         return $this->hasMany(Post::class);
-    }
-
-    public function users()
-    {
-        return $this->hasMany(User::class);
     }
 }

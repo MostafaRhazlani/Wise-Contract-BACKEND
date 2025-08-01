@@ -102,7 +102,7 @@ class TemplateController extends Controller
     public function show($id)
     {
         try {
-            $template = Template::with('type')->findOrFail($id);
+            $template = Template::with('type', 'pages')->findOrFail($id);
             return response()->json([
                 'template' => $template
             ], 200);

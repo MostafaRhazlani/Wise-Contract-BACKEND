@@ -15,10 +15,10 @@ class VariableSeeder extends Seeder
         // Create predefined variables that map to actual database fields
         $variables = [
             // User fields
-            ['label' => 'user_name', 'key' => 'user.name'],
-            ['label' => 'user_email', 'key' => 'user.email'],
-            ['label' => 'user_phone', 'key' => 'user.phone'],
-            ['label' => 'user_id', 'key' => 'user.id'],
+            ['label' => 'name', 'key' => 'user.name'],
+            ['label' => 'email', 'key' => 'user.email'],
+            ['label' => 'phone', 'key' => 'user.phone'],
+            ['label' => 'id', 'key' => 'user.id'],
             ['label' => 'join_date', 'key' => 'user.join_date'],
             ['label' => 'created_at', 'key' => 'user.created_at'],
 
