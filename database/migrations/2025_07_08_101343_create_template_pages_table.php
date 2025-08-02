@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('page_name')->nullable();
             $table->string('image_path');
-            $table->text('content_json')->nullable();
+            $table->longText('content_json', )->nullable();
             $table->foreignId('template_id')->constrained('templates')->onDelete('cascade');
             $table->timestamps();
         });
