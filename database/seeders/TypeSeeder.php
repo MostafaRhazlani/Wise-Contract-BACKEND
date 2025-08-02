@@ -22,40 +22,13 @@ class TypeSeeder extends Seeder
                 'height' => 1122  // A4 height in px at 96 DPI
             ],
             [
-                'title' => 'CV A4',
-                'logo' => 'FileUser',
-                'color' => '#F9A826',
+                'title' => 'Invoice A4',
+                'logo' => 'FileText',
+                'color' => '#2563EB',
                 'width' => 794,   // A4 width in px at 96 DPI
                 'height' => 1122  // A4 height in px at 96 DPI
-            ],
-            [
-                'title' => 'Contract A5',
-                'logo' => 'ReceiptText',
-                'color' => '#8B5A2B',
-                'width' => 559,   // A5 width in px at 96 DPI
-                'height' => 794   // A5 height in px at 96 DPI
-            ],
-            [
-                'title' => 'CV A5',
-                'logo' => 'FileUser',
-                'color' => '#2B8B4F',
-                'width' => 559,   // A5 width in px at 96 DPI
-                'height' => 794   // A5 height in px at 96 DPI
-            ],
-            [
-                'title' => 'Contract A2',
-                'logo' => 'ReceiptText',
-                'color' => '#8B2B4F',
-                'width' => 1587,  // A2 width in px at 96 DPI
-                'height' => 2244  // A2 height in px at 96 DPI
-            ],
-            [
-                'title' => 'CV A2',
-                'logo' => 'FileUser',
-                'color' => '#4F2B8B',
-                'width' => 1587,  // A2 width in px at 96 DPI
-                'height' => 2244  // A2 height in px at 96 DPI
             ]
+            
         ];
 
         foreach ($types as $type) {
